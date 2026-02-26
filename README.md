@@ -19,6 +19,7 @@
 11. [Privacy & Security Features](#privacy--security-features)
 12. [Environment Setup & Running Locally](#environment-setup--running-locally)
 13. [Project Structure](#project-structure)
+14. [Technical & Product Documentation](#technical--product-documentation)
 
 ---
 
@@ -570,6 +571,16 @@ npm run dev
 ### Step 5: Open the App
 
 Navigate to **http://localhost:5173**
+
+---
+
+## Technical & Product Documentation
+
+For deep dives into the system design, product vision, and contribution guidelines, see the `docs/` folder:
+
+- **[Architecture Deep Dive](docs/ARCHITECTURE.md)**: Mermaid diagrams, data flow, and component breakdown.
+- **[Product Specification (PRD)](docs/PRODUCT_SPEC.md)**: Vision, user journeys, functional requirements, and roadmap.
+- **[Contribution Guide](docs/CONTRIBUTING.md)**: How to set up the dev environment and submit pull requests.
 
 ---
 
