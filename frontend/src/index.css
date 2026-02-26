@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-terminal-black text-terminal-green font-mono overflow-hidden;
+    /* CRT Scanline Overlay */
+    background-size: 100% 100%;
+  }
+
+  /* Scanline pseudo-element */
+  body::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 9999;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+    opacity: 0.15;
+  }
+}
+
+@layer utilities {
+  .terminal-border {
+    @apply border border-terminal-green;
+  }
+
+  .terminal-glow {
+    text-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
+  }
+
+  .terminal-input {
+    @apply bg-transparent border-none outline-none text-terminal-green placeholder-terminal-dim font-mono w-full;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-terminal-black border-l border-terminal-dim;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-terminal-green;
+    border: 2px solid #000; /* mimic blocky look */
+    border-radius: 0;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-terminal-cyan;
+  }
+}

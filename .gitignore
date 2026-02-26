@@ -1,0 +1,35 @@
+# Monorepo Root Gitignore
+
+# Node
+node_modules/
+dist/
+build/
+.npm/
+
+# Backend
+backend/data/*.db
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/.env
+
+# Frontend
+frontend/.env
+frontend/dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Misc
+legacy/
+docs/assets/*.png
+docs/assets/*.webp
+!docs/assets/.gitkeep
