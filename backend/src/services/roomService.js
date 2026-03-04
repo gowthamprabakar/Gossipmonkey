@@ -365,7 +365,11 @@ export const createMessage = ({ roomId, senderId, text, imageUrl = null, type = 
 export const getMessageById = (messageId) => db.prepare('SELECT * FROM messages WHERE id = ? AND deleted_at IS NULL').get(messageId);
 
 export const deleteMessageByAdmin = ({ roomId, messageId, requesterId }) => {
-  if (!isRoomAdmin({ roomId, personaId: requesterId })) throw new Error('Only admin can delete messages');
+  const message = getMessageById(messageId);
+  if (!message || message.room_id !== roomId) throw new Error('Message not found');
+  const isAdmin = isRoomAdmin({ roomId, personaId: requesterId });
+  const isSender = message.sender_id === requesterId;
+  if (!isAdmin && !isSender) throw new Error('Only the sender or an admin can delete this message');
   db.prepare('UPDATE messages SET deleted_at = ? WHERE id = ? AND room_id = ?').run(nowIso(), messageId, roomId);
 };
 

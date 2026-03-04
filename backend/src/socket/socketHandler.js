@@ -39,7 +39,37 @@ import {
 } from '../services/monkeyService.js';
 import { registerCrons, unregisterCrons, reregisterCrons } from '../services/monkeyScheduler.js';
 
-const pendingKnocks = new Map();
+import { db, nowIso } from '../db/database.js';
+
+// ──────────────────────────────────────────────────────────────────────────────
+// pendingKnocks — DB-backed (persists across server restarts)
+// Uses the `notifications` table with type='pending_knock'.
+// payload_json = { socketId, persona: {id, name, avatar, score}, roomId }
+// ──────────────────────────────────────────────────────────────────────────────
+const _addPendingKnock = (roomId, socketId, persona) => {
+  // Remove any old knock for this persona in this room first
+  db.prepare(`DELETE FROM notifications WHERE room_id = ? AND persona_id = ? AND type = 'pending_knock'`)
+    .run(roomId, persona.id);
+  db.prepare(`INSERT INTO notifications (id, persona_id, room_id, type, payload_json, read_at, created_at) VALUES (?,?,?,?,?,NULL,?)`)
+    .run(crypto.randomUUID(), persona.id, roomId, 'pending_knock', JSON.stringify({ socketId, persona, roomId }), nowIso());
+};
+
+const _getPendingKnocks = (roomId) => {
+  const rows = db.prepare(`SELECT payload_json FROM notifications WHERE room_id = ? AND type = 'pending_knock'`).all(roomId);
+  return rows.map(r => { try { return JSON.parse(r.payload_json); } catch { return null; } }).filter(Boolean);
+};
+
+const _removePendingKnock = (roomId, personaId) => {
+  db.prepare(`DELETE FROM notifications WHERE room_id = ? AND persona_id = ? AND type = 'pending_knock'`)
+    .run(roomId, personaId);
+};
+
+const _removePendingKnockBySocket = (roomId, socketId) => {
+  const knocks = _getPendingKnocks(roomId);
+  const knock = knocks.find(k => k.socketId === socketId);
+  if (knock) _removePendingKnock(roomId, knock.persona.id);
+  return knock || null;
+};
 
 const ensureSocketAuth = (socket) => {
   const token = socket.handshake.auth?.token;
@@ -78,9 +108,7 @@ export const configureSocket = (io) => {
         const { room } = ensureRoomJoinAllowed({ roomId, personaId: persona.id });
 
         if (room.settings.approvalRequired && room.creatorId !== persona.id) {
-          const knock = { socketId: socket.id, persona, roomId };
-          const existing = pendingKnocks.get(roomId) || [];
-          pendingKnocks.set(roomId, [...existing.filter((x) => x.persona.id !== persona.id), knock]);
+          _addPendingKnock(roomId, socket.id, persona);
 
           io.in(roomId).emit('knock_request', { socketId: socket.id, persona });
           socket.emit('knock_pending', { message: 'Waiting for admin approval...' });
@@ -147,9 +175,10 @@ export const configureSocket = (io) => {
           return;
         }
 
-        const queue = pendingKnocks.get(roomId) || [];
-        const knock = queue.find((k) => k.socketId === socketId);
-        pendingKnocks.set(roomId, queue.filter((k) => k.socketId !== socketId));
+        const queue = _getPendingKnocks(roomId);
+        const knock = queue.find((k) => k.socketId === socketId) ||
+          queue.find((k) => k.persona?.id && io.sockets.sockets.get(socketId)?.data?.persona?.id === k.persona.id);
+        if (knock) _removePendingKnock(roomId, knock.persona.id);
 
         let target = io.sockets.sockets.get(socketId);
         if (!target && knock?.persona?.id) {
@@ -335,7 +364,7 @@ export const configureSocket = (io) => {
         // Provide UI feedback to the sender
         socket.emit('system_message', {
           type: 'success',
-          text: `You tipped ${amount} 🍌 to ${result.to.name}!`
+          text: `You tipped ${amount} 🍌 to ${result.to.alias}!`
         });
       } catch (error) {
         console.error('Tip User Error:', error.message);

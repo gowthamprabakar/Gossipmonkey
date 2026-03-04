@@ -242,7 +242,7 @@ function MenuRow({ icon, label, color = 'rgba(255,255,255,0.5)', onPress, danger
 
 // ── Profile Screen ────────────────────────────────────────────────
 export function ProfileScreen({ navigation }: any) {
-    const { persona, setPersona, setToken } = useAppStore();
+    const { persona, setPersona, setToken, token } = useAppStore();
     const insets = useSafeAreaInsets();
     const theme = nameToColor(persona?.name ?? 'Monkey');
     const score = persona?.score ?? 100;
@@ -253,6 +253,7 @@ export function ProfileScreen({ navigation }: any) {
     const [editField, setEditField] = useState<'alias' | 'vibe' | null>(null);
     const [draftAlias, setDraftAlias] = useState(persona?.name ?? '');
     const [draftVibe, setDraftVibe] = useState('');
+    const [savingProfile, setSavingProfile] = useState(false);
 
     // Pulse for avatar glow
     const glow = useSharedValue(0.4);
@@ -338,7 +339,36 @@ export function ProfileScreen({ navigation }: any) {
                             </View>
                         )}
 
-                        <TouchableOpacity onPress={() => setEditVisible(false)} style={styles.modalSave}>
+                        <TouchableOpacity
+                            disabled={savingProfile}
+                            onPress={async () => {
+                                setSavingProfile(true);
+                                try {
+                                    const body: any = {};
+                                    if (editField === 'alias' && draftAlias.trim() && draftAlias.trim() !== persona?.name) {
+                                        body.alias = draftAlias.trim();
+                                    }
+                                    if (Object.keys(body).length > 0) {
+                                        const { api } = await import('../../services/api');
+                                        const res = await api.patch('/identity/me', body);
+                                        const updated = res.data?.data?.persona;
+                                        if (updated) {
+                                            setPersona({
+                                                ...persona!,
+                                                name: updated.alias ?? persona!.name,
+                                                score: updated.score ?? persona!.score,
+                                            });
+                                        }
+                                    }
+                                } catch (e) {
+                                    console.warn('[ProfileScreen] Failed to save profile:', e);
+                                } finally {
+                                    setSavingProfile(false);
+                                    setEditVisible(false);
+                                }
+                            }}
+                            style={[styles.modalSave, savingProfile && { opacity: 0.6 }]}
+                        >
                             <LinearGradient colors={['#7C3AED', '#EC4899']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
                                 style={styles.modalSaveGradient}>
                                 <Text style={{ color: 'white', fontWeight: '800', fontSize: 14 }}>Save Changes</Text>
