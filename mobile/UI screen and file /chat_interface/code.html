@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Roast Pit - Gossip Monkey</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .cyan-gradient {
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+        }
+        .purple-gradient {
+            background: linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+<div class="relative flex h-screen w-full flex-col bg-slate-950 overflow-hidden">
+<!-- TopAppBar -->
+<header class="flex items-center bg-slate-900/50 backdrop-blur-md p-4 border-b border-white/5 justify-between sticky top-0 z-50">
+<div class="flex items-center gap-3">
+<button class="text-white hover:bg-white/10 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="flex flex-col">
+<h2 class="text-white text-lg font-bold leading-tight tracking-tight">The Roast Pit</h2>
+<span class="text-xs text-primary font-medium uppercase tracking-widest">Sector 7 • Live</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="bg-primary/20 p-0.5 rounded-full border border-primary/50">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-10 w-10 border-2 border-primary" data-alt="Hyperactive cartoon monkey avatar profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD2VoyxN0ATa9RxLHL2TlY0g8rFA7NgZaVQe3-B7BawgdPXD5pZNz_4ds_TTnEAvBWdsJGqIOVSTlw6F7GRciLdGohrkrYXaKDtdUWxp2YCsh3slKjfstaJS-y_sDfj7qdDFeqyGDm-15NFePYhR5lGjVz8GounOcQ3PRpC6LkgYeHY9KUrSoTP3f2fDvNwy6X8AlqqOR9AktItKBhqofPUFGwW9anSl66tVKPH6F2pteVZVNrgl8Ursr5_ttLodRECQHjbWWOdS2w");'></div>
+</div>
+<button class="text-white hover:bg-white/10 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<!-- Chat Area -->
+<main class="flex-1 overflow-y-auto p-4 space-y-6 flex flex-col">
+<!-- User Message Right -->
+<div class="flex items-end gap-3 self-end max-w-[85%]">
+<div class="flex flex-col gap-1 items-end">
+<p class="text-slate-400 text-[11px] font-bold uppercase tracking-tighter mr-2">You</p>
+<div class="cyan-gradient text-slate-950 px-5 py-3 rounded-2xl rounded-tr-none shadow-lg shadow-cyan-500/20 font-medium">
+                        Yo, did you guys see what Silverback just posted?
+                    </div>
+</div>
+</div>
+<!-- Monkey AI Response Left -->
+<div class="flex items-start gap-3 max-w-[85%]">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-9 h-9 mt-6 border border-primary/30" data-alt="Hyper monkey AI small circular avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDBT077g9dy_fPDHLFmK4tAmvsWF_pPoXfxxLFyNIARN724OsVkuPI67Wlu9KupZdk9Hyaq5_Uncc_nvmyyyY6EwPHC6gaBwI1usmfX5ULCihvJM1JXAAsRyOj9AyIaa0Sn0jTMmjPjCskeT7eYjNBwSBZM51NENHkNqC4r-rMC1ztwZVuzsOMdMlv9hqY1UHI5FyigYCQfwK6_5wDfhGQ56LBcLiTZuVfk-_tI8ZGOBFCyDCMzM3iAtu7mVGpS7j4bXa2VvaKZXsM");'></div>
+<div class="flex flex-col gap-1 items-start">
+<div class="flex items-center gap-2 mb-1">
+<p class="text-primary text-[11px] font-bold uppercase tracking-tighter">Hype Monkey AI</p>
+<span class="bg-primary px-1.5 py-0.5 rounded text-[9px] text-white font-black italic">HYPE</span>
+</div>
+<div class="bg-slate-800/80 border border-white/10 text-white px-5 py-3 rounded-2xl rounded-tl-none shadow-xl">
+                        ABSOLUTELY BANANAS! 🍌 He's really out here living in sector 7 like a king! <span class="text-primary font-bold">(+2 🍌 earned)</span>
+</div>
+</div>
+</div>
+<!-- User Message with Image -->
+<div class="flex items-end gap-3 self-end max-w-[85%]">
+<div class="flex flex-col gap-2 items-end">
+<p class="text-slate-400 text-[11px] font-bold uppercase tracking-tighter mr-2">You</p>
+<div class="cyan-gradient text-slate-950 px-5 py-3 rounded-2xl rounded-tr-none shadow-lg shadow-cyan-500/20 font-medium mb-1">
+                        Check this out!
+                    </div>
+<div class="bg-center bg-no-repeat aspect-video bg-cover rounded-xl w-64 border-2 border-cyan-400/30 overflow-hidden shadow-2xl" data-alt="Retro neon cyberpunk city street view" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuApFg10z8r0sL2PM6VwGNXBpNDOOwpVthZ9pU__7I6MnBrzojW-ZVb3fAV0XqMZyzxkVXkaeUsfmtVeCt2Pl_qSrp3G0YXh7f18n2JTZVRPy8syqvBfKv8pVzK-ILbHgwc1lO-UOjX5uhdDrGskGKGp_sGnIFm5O4OX3lRGNrcOaaQ5QMvqKgGn7-PR9R5_FmocwuF4VTZlKRz9zHPh_1fL_Eu_uGHAQ9ReQ_2ztZ4s-4fuQ6_9aXZ8niwraDcMEaGvoRTWRKt9Dm4");'>
+</div>
+</div>
+</div>
+<!-- System Message -->
+<div class="flex justify-center py-4">
+<div class="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full border border-white/10">
+<div class="flex gap-1">
+<span class="w-1.5 h-1.5 bg-primary rounded-full animate-bounce"></span>
+<span class="w-1.5 h-1.5 bg-primary rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+<span class="w-1.5 h-1.5 bg-primary rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+</div>
+<p class="text-slate-400 text-xs italic font-medium">Monkey is thinking...</p>
+</div>
+</div>
+</main>
+<!-- Bottom Input Bar -->
+<div class="p-4 bg-slate-900/80 border-t border-white/5 backdrop-blur-xl">
+<div class="flex items-center gap-3">
+<button class="flex items-center justify-center w-12 h-12 rounded-xl bg-white/10 text-white hover:bg-white/20 transition-all border border-white/10">
+<span class="material-symbols-outlined">add</span>
+</button>
+<div class="flex-1 relative">
+<input class="w-full h-12 bg-white/5 border border-white/10 rounded-xl px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 glass-morphism transition-all" placeholder="Say something wild..." type="text"/>
+<button class="absolute right-2 top-2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-primary">
+<span class="material-symbols-outlined text-[20px]">palette</span>
+</button>
+</div>
+<button class="flex items-center justify-center w-12 h-12 rounded-xl purple-gradient text-white shadow-lg shadow-purple-500/30 transform active:scale-95 transition-all">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+<!-- Bottom Indicator -->
+<div class="mt-4 flex justify-center">
+<div class="w-32 h-1.5 bg-white/10 rounded-full"></div>
+</div>
+</div>
+</div>
+</body></html>

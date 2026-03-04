@@ -1,4 +1,4 @@
-import { listRooms, createRoom, getRoomById, updateRoomSettings } from '../services/roomService.js';
+import { listRooms, createRoom, getRoomById, updateRoomSettings, getRecentMessages } from '../services/roomService.js';
 import { listNotifications } from '../services/notificationService.js';
 
 export const getRooms = (req, res) => {
@@ -50,4 +50,14 @@ export const getRoomNotifications = (req, res) => {
   });
 
   return res.json({ success: true, data: notifications });
+};
+
+export const getRoomPreview = (req, res) => {
+  const messages = getRecentMessages(req.params.roomId, 50);
+  // Return last 3 text messages only (no images or system msgs)
+  const preview = messages
+    .filter(m => m.text && m.type === 'user')
+    .slice(-3)
+    .map(m => ({ sender: m.sender.name, text: m.text }));
+  return res.json({ success: true, data: preview });
 };

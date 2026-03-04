@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gossip Monkey - Room Browser</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;family=Poppins:wght@600;700&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                        "accent-purple": "#a855f7",
+                        "accent-cyan": "#06b6d4",
+                    },
+                    fontFamily: {
+                        "display": ["Poppins", "Public Sans", "sans-serif"],
+                        "body": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-body text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10 px-4 py-3 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="bg-primary rounded-xl p-1.5 flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-2xl">pest_control_rodent</span>
+</div>
+<h1 class="font-display text-xl font-bold tracking-tight text-slate-900 dark:text-white">Gossip Monkey</h1>
+</div>
+<div class="flex items-center gap-3">
+<div class="bg-primary/10 dark:bg-primary/20 px-3 py-1.5 rounded-full border border-primary/20 flex items-center gap-1.5">
+<span class="text-sm font-bold text-primary">1,240</span>
+<span class="text-base">🍌</span>
+</div>
+<div class="size-10 rounded-full overflow-hidden border-2 border-primary/30">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Cool monkey avatar with sunglasses and a hoodie" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpKcgqhsjB89TYVvo6Vh0P_ALwKGVcRjKMmPoYsNQBkxoRbv8hy_gOv1IZ4OGlWO-qSspIiTd6WbZzm-74jP_RFum80cjVgshRXqjpLGXDeqBJAfmpj2WaS0CjjiXuJZmB1aXkJrcfWLBYL3AK6NFE8dppc0OoVW0JMjy8AD-n-DE5C9N5Jg7qCwWfhPljGuk1zdsqbx-8QMRuu1Ow7pNDP4gpPHqBySHS4OnIW_rKTgm3hqcjnyG0OT9HNKZCBKhYiekOC_G5AEs"/>
+</div>
+</div>
+</header>
+<main class="flex-1 overflow-y-auto px-4 pb-24">
+<!-- Search Section -->
+<div class="py-6">
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400 group-focus-within:text-primary transition-colors">search</span>
+</div>
+<input class="block w-full pl-11 pr-4 py-3.5 bg-white/50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl focus:ring-2 focus:ring-primary focus:border-transparent backdrop-blur-xl transition-all placeholder:text-slate-400" placeholder="Find a jungle to join..." type="text"/>
+</div>
+</div>
+<!-- Filter Chips -->
+<div class="flex gap-2 overflow-x-auto pb-4 scrollbar-hide no-scrollbar">
+<button class="flex-none px-5 py-2 rounded-full bg-primary text-white text-sm font-semibold shadow-lg shadow-primary/20">All</button>
+<button class="flex-none px-5 py-2 rounded-full bg-slate-200 dark:bg-white/10 text-slate-700 dark:text-slate-300 text-sm font-semibold hover:bg-slate-300 dark:hover:bg-white/20 transition-colors">Public</button>
+<button class="flex-none px-5 py-2 rounded-full bg-slate-200 dark:bg-white/10 text-slate-700 dark:text-slate-300 text-sm font-semibold hover:bg-slate-300 dark:hover:bg-white/20 transition-colors">Private</button>
+<button class="flex-none px-5 py-2 rounded-full bg-slate-200 dark:bg-white/10 text-slate-700 dark:text-slate-300 text-sm font-semibold hover:bg-slate-300 dark:hover:bg-white/20 transition-colors">Local</button>
+<button class="flex-none px-5 py-2 rounded-full bg-slate-200 dark:bg-white/10 text-slate-700 dark:text-slate-300 text-sm font-semibold hover:bg-slate-300 dark:hover:bg-white/20 transition-colors">Trending</button>
+</div>
+<!-- Room List Section -->
+<div class="mt-4 space-y-4">
+<h2 class="font-display text-lg font-bold text-slate-800 dark:text-slate-100 px-1">Active Rooms</h2>
+<!-- Room Card 1 -->
+<div class="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-3xl p-5 shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-accent-purple/10 rounded-full -mr-16 -mt-16 blur-3xl"></div>
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-3">
+<div class="size-12 rounded-2xl bg-gradient-to-br from-accent-purple to-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-3xl">fireplace</span>
+</div>
+<div>
+<h3 class="font-display font-bold text-lg">The Roast Pit</h3>
+<div class="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
+<span class="size-2 rounded-full bg-green-500 animate-pulse"></span>
+                                42 chimps online
+                            </div>
+</div>
+</div>
+<span class="px-2 py-1 rounded-lg bg-accent-purple/10 text-accent-purple text-[10px] font-bold uppercase tracking-wider">Hype</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400 mb-5 line-clamp-2 italic">"Did you see what Silverback posted? Absolutely bananas behavior in sector 7..."</p>
+<button class="w-full py-3 bg-slate-900 dark:bg-white text-white dark:text-background-dark font-bold rounded-2xl hover:scale-[1.02] active:scale-95 transition-all">
+                    Swing In
+                </button>
+</div>
+<!-- Room Card 2 -->
+<div class="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-3xl p-5 shadow-sm hover:shadow-md transition-all relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-accent-cyan/10 rounded-full -mr-16 -mt-16 blur-3xl"></div>
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-3">
+<div class="size-12 rounded-2xl bg-gradient-to-br from-accent-cyan to-blue-500 flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-3xl">psychology</span>
+</div>
+<div>
+<h3 class="font-display font-bold text-lg">Wise Chimps Only</h3>
+<div class="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
+<span class="size-2 rounded-full bg-green-500 animate-pulse"></span>
+                                12 online
+                            </div>
+</div>
+</div>
+<span class="px-2 py-1 rounded-lg bg-accent-cyan/10 text-accent-cyan text-[10px] font-bold uppercase tracking-wider">Wise</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400 mb-5 line-clamp-2">Discussing the philosophical implications of the Great Banana Shortage of '23.</p>
+<button class="w-full py-3 bg-slate-900 dark:bg-white text-white dark:text-background-dark font-bold rounded-2xl hover:scale-[1.02] active:scale-95 transition-all">
+                    Swing In
+                </button>
+</div>
+<!-- Room Card 3 -->
+<div class="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-3xl p-5 shadow-sm hover:shadow-md transition-all relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full -mr-16 -mt-16 blur-3xl"></div>
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-3">
+<div class="size-12 rounded-2xl bg-gradient-to-br from-primary to-orange-400 flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-3xl">celebration</span>
+</div>
+<div>
+<h3 class="font-display font-bold text-lg">Banana Party 24/7</h3>
+<div class="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
+<span class="size-2 rounded-full bg-slate-400"></span>
+                                156 online
+                            </div>
+</div>
+</div>
+<span class="px-2 py-1 rounded-lg bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider">Chaos</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400 mb-5 line-clamp-2">Just vibing and sharing memes. No drama, just potassium.</p>
+<button class="w-full py-3 bg-slate-900 dark:bg-white text-white dark:text-background-dark font-bold rounded-2xl hover:scale-[1.02] active:scale-95 transition-all">
+                    Swing In
+                </button>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-background-dark/80 backdrop-blur-xl border-t border-slate-200 dark:border-white/10 px-6 pb-6 pt-3 flex items-center justify-between">
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1">chat_bubble</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Chat</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">explore</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Discovery</span>
+</a>
+<div class="relative -top-8">
+<button class="size-14 rounded-full bg-primary text-white shadow-xl shadow-primary/40 flex items-center justify-center border-4 border-background-light dark:border-background-dark transform hover:rotate-90 transition-transform duration-300">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</div>
+<a class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">groups</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Social</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">settings</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Settings</span>
+</a>
+</nav>
+</body></html>

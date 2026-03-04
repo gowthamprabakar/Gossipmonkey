@@ -1,0 +1,53 @@
+{
+  "expo": {
+    "name": "Gossip Monkey",
+    "slug": "gossip-monkey",
+    "version": "1.0.0",
+    "scheme": "gossipmonkey",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#050210"
+    },
+    "notification": {
+      "color": "#7C3AED",
+      "androidMode": "collapse",
+      "androidCollapsedTitle": "#{unread_notifications} new in the jungle 🐒"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.gossipmonkey.app",
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "fetch",
+          "remote-notification"
+        ]
+      }
+    },
+    "android": {
+      "package": "com.gossipmonkey.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#050210",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "color": "#7C3AED",
+          "sounds": []
+        }
+      ]
+    ]
+  }
+}

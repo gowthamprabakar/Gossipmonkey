@@ -7,6 +7,7 @@ import roomRoutes from './routes/roomRoutes.js';
 import channelRoutes from './routes/channelRoutes.js';
 import privacyRoutes from './routes/privacyRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
+import notificationRoutes from './routes/notificationRoutes.js';
 import { createWebhookRoutes } from './routes/webhookRoutes.js';
 import { backfillWebhookSecrets } from './controllers/webhookController.js';
 import { recoverCronsOnStartup, getCronStats } from './services/monkeyScheduler.js';
@@ -40,6 +41,7 @@ export const createServerApp = () => {
   app.use('/api/channels', channelRoutes);
   app.use('/api/privacy', privacyRoutes);
   app.use('/api/upload', uploadRoutes);
+  app.use('/api/notifications', notificationRoutes);
   app.use('/api', createWebhookRoutes(io)); // POST /api/rooms/:id/webhook
 
   // Debug: cron registry status

@@ -264,9 +264,12 @@ export const listParticipants = (roomId) => {
 
 export const getRecentMessages = (roomId, limit = 100) => {
   const rows = db.prepare(`
-    SELECT m.*, p.alias as sender_name, p.avatar as sender_avatar
+    SELECT m.*, p.alias as sender_name, p.avatar as sender_avatar,
+           r.id as reply_to_id, r.text as reply_to_text, rp.alias as reply_to_sender_name
     FROM messages m
     JOIN personas p ON p.id = m.sender_id
+    LEFT JOIN messages r ON r.id = m.reply_to_id AND r.deleted_at IS NULL
+    LEFT JOIN personas rp ON rp.id = r.sender_id
     WHERE m.room_id = ? AND m.deleted_at IS NULL
     ORDER BY m.created_at ASC
     LIMIT ?
@@ -284,6 +287,11 @@ export const getRecentMessages = (roomId, limit = 100) => {
       avatar: row.sender_avatar,
       role: row.message_type === 'monkey_action' ? 'admin' : 'member'
     },
+    replyTo: row.reply_to_id ? {
+      id: row.reply_to_id,
+      text: row.reply_to_text,
+      senderName: row.reply_to_sender_name
+    } : undefined,
     reactions: getMessageReactions(row.id)
   }));
 };
@@ -323,12 +331,23 @@ export const canSendMessage = ({ roomId, personaId, text, imageUrl = null }) => 
   return room;
 };
 
-export const createMessage = ({ roomId, senderId, text, imageUrl = null, type = 'user' }) => {
+export const createMessage = ({ roomId, senderId, text, imageUrl = null, type = 'user', replyToId = null }) => {
   const id = crypto.randomUUID();
   const createdAt = nowIso();
   const cleanText = String(text || '').slice(0, 2000);
-  db.prepare('INSERT INTO messages (id, room_id, sender_id, text, image_url, message_type, created_at, deleted_at) VALUES (?, ?, ?, ?, ?, ?, ?, NULL)')
-    .run(id, roomId, senderId, cleanText, imageUrl, type, createdAt);
+  db.prepare('INSERT INTO messages (id, room_id, sender_id, text, image_url, message_type, created_at, deleted_at, reply_to_id) VALUES (?, ?, ?, ?, ?, ?, ?, NULL, ?)')
+    .run(id, roomId, senderId, cleanText, imageUrl, type, createdAt, replyToId);
+
+  let replyToData = undefined;
+  if (replyToId) {
+    const parent = db.prepare(`
+      SELECT m.id, m.text, p.alias as sender_name 
+      FROM messages m JOIN personas p ON p.id = m.sender_id 
+      WHERE m.id = ?`).get(replyToId);
+    if (parent) {
+      replyToData = { id: parent.id, text: parent.text, senderName: parent.sender_name };
+    }
+  }
 
   const persona = getPersonaById(senderId);
   return {
@@ -338,6 +357,7 @@ export const createMessage = ({ roomId, senderId, text, imageUrl = null, type = 
     type,
     timestamp: createdAt,
     sender: { id: senderId, name: persona.alias, avatar: persona.avatar, role: type === 'monkey_action' ? 'admin' : 'member' },
+    replyTo: replyToData,
     reactions: {}
   };
 };
@@ -430,6 +450,11 @@ export const tipUser = ({ roomId, fromUserId, toUserId, amount }) => {
   const sender = getPersonaById(fromUserId);
   if (!sender || sender.score < amount) throw new Error('Not enough bananas');
 
+  // Insert tip transaction record
+  db.prepare('INSERT INTO tips (id, room_id, from_persona_id, to_persona_id, amount, created_at) VALUES (?, ?, ?, ?, ?, ?)')
+    .run(crypto.randomUUID(), roomId, fromUserId, toUserId, amount, nowIso());
+
+  // Update balances
   updatePersonaScore(fromUserId, -amount);
   updatePersonaScore(toUserId, amount);
 

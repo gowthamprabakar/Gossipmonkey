@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13", // Theme default as requested, but I will override with Electric Purple/Cyan for the requested style
+                        "electric-purple": "#a855f7",
+                        "electric-cyan": "#22d3ee",
+                        "deep-space": "#0a0a0c",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#0a0a0c",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .purple-glow {
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark font-display text-slate-100 min-h-screen flex flex-col">
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-deep-space/80 backdrop-blur-md border-b border-white/10 p-4 flex items-center gap-4">
+<button class="flex items-center justify-center size-10 rounded-full hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-electric-cyan">arrow_back</span>
+</button>
+<h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-electric-purple to-electric-cyan bg-clip-text text-transparent">
+            Privacy &amp; Account
+        </h1>
+</header>
+<main class="flex-1 overflow-y-auto pb-24 px-4 space-y-6 mt-4">
+<!-- Section 1: Account Security -->
+<section class="space-y-3">
+<h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 px-2">Account Security</h3>
+<div class="glass-card rounded-xl overflow-hidden">
+<div class="flex items-center justify-between p-4 border-b border-white/5 hover:bg-white/5 cursor-pointer transition-colors">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-lg bg-electric-purple/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-electric-purple">lock_reset</span>
+</div>
+<div>
+<p class="font-medium text-slate-100">Change Password</p>
+<p class="text-xs text-slate-400">Secure your account with a new password</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-500">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-4">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-lg bg-electric-cyan/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-electric-cyan">enhanced_encryption</span>
+</div>
+<div>
+<p class="font-medium text-slate-100">Two-factor authentication</p>
+<p class="text-xs text-slate-400">Add an extra layer of security</p>
+</div>
+</div>
+<label class="relative flex h-6 w-11 cursor-pointer items-center rounded-full bg-slate-700 p-1 transition-colors has-[:checked]:bg-electric-purple">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="h-4 w-4 rounded-full bg-white transition-transform peer-checked:translate-x-5"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Section 2: Privacy -->
+<section class="space-y-3">
+<h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 px-2">Privacy</h3>
+<div class="glass-card rounded-xl overflow-hidden">
+<div class="flex items-center justify-between p-4 border-b border-white/5">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-lg bg-slate-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-300">visibility_off</span>
+</div>
+<p class="font-medium text-slate-100">Invisible Mode</p>
+</div>
+<label class="relative flex h-6 w-11 cursor-pointer items-center rounded-full bg-slate-700 p-1 transition-colors has-[:checked]:bg-electric-purple">
+<input class="sr-only peer" type="checkbox"/>
+<div class="h-4 w-4 rounded-full bg-white transition-transform peer-checked:translate-x-5"></div>
+</label>
+</div>
+<div class="flex items-center justify-between p-4 border-b border-white/5">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-lg bg-slate-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-300">mark_chat_read</span>
+</div>
+<p class="font-medium text-slate-100">Read Receipts</p>
+</div>
+<label class="relative flex h-6 w-11 cursor-pointer items-center rounded-full bg-slate-700 p-1 transition-colors has-[:checked]:bg-electric-purple">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="h-4 w-4 rounded-full bg-white transition-transform peer-checked:translate-x-5"></div>
+</label>
+</div>
+<div class="flex items-center justify-between p-4 hover:bg-white/5 cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-lg bg-slate-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-300">block</span>
+</div>
+<p class="font-medium text-slate-100">Blocked Users</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-sm text-slate-400">12 users</span>
+<span class="material-symbols-outlined text-slate-500">chevron_right</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Persona Privacy -->
+<section class="space-y-3">
+<h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 px-2">Persona Privacy</h3>
+<div class="glass-card rounded-xl overflow-hidden border-electric-cyan/20">
+<div class="flex items-center justify-between p-4 border-b border-white/5">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-lg bg-electric-cyan/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-electric-cyan">currency_bitcoin</span>
+</div>
+<div>
+<p class="font-medium text-slate-100">Hide Banana Balance</p>
+<p class="text-xs text-slate-400">Keep your wealth private from other monkeys</p>
+</div>
+</div>
+<label class="relative flex h-6 w-11 cursor-pointer items-center rounded-full bg-slate-700 p-1 transition-colors has-[:checked]:bg-electric-cyan">
+<input class="sr-only peer" type="checkbox"/>
+<div class="h-4 w-4 rounded-full bg-white transition-transform peer-checked:translate-x-5"></div>
+</label>
+</div>
+<div class="flex items-center justify-between p-4">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-lg bg-electric-cyan/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-electric-cyan">masks</span>
+</div>
+<div>
+<p class="font-medium text-slate-100">Anonymous Posting</p>
+<p class="text-xs text-slate-400">Default all new posts to anonymous</p>
+</div>
+</div>
+<label class="relative flex h-6 w-11 cursor-pointer items-center rounded-full bg-slate-700 p-1 transition-colors has-[:checked]:bg-electric-cyan">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="h-4 w-4 rounded-full bg-white transition-transform peer-checked:translate-x-5"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Section 4: Data & Storage -->
+<section class="space-y-3">
+<h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 px-2">Data &amp; Storage</h3>
+<div class="glass-card rounded-xl overflow-hidden">
+<div class="flex items-center justify-between p-4 border-b border-white/5 hover:bg-white/5 cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-lg bg-slate-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-300">mop</span>
+</div>
+<p class="font-medium text-slate-100">Clear Cache</p>
+</div>
+<span class="text-sm text-slate-400">248 MB</span>
+</div>
+<div class="flex items-center justify-between p-4 border-b border-white/5 hover:bg-white/5 cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-lg bg-slate-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-300">download_for_offline</span>
+</div>
+<p class="font-medium text-slate-100">Download My Data</p>
+</div>
+<span class="material-symbols-outlined text-slate-500">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-4 bg-red-500/5 hover:bg-red-500/10 cursor-pointer transition-colors group">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-lg bg-red-500/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-red-400">delete_forever</span>
+</div>
+<div>
+<p class="font-medium text-red-400">Delete Account</p>
+<p class="text-xs text-red-500/70">Danger Zone: This action is permanent</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-red-500/50 group-hover:text-red-400">warning</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 bg-deep-space/95 backdrop-blur-xl border-t border-white/10 px-4 pb-6 pt-2">
+<div class="flex items-center justify-around">
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-electric-cyan transition-colors">home</span>
+<span class="text-[10px] font-medium text-slate-500 group-hover:text-electric-cyan">Feed</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-electric-cyan transition-colors">forum</span>
+<span class="text-[10px] font-medium text-slate-500 group-hover:text-electric-cyan">Gossip</span>
+</a>
+<a class="flex flex-col items-center gap-1 group scale-110 -translate-y-1" href="#">
+<div class="bg-gradient-to-tr from-electric-purple to-electric-cyan p-2 rounded-full shadow-lg purple-glow">
+<span class="material-symbols-outlined text-white">add</span>
+</div>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-electric-cyan transition-colors">search</span>
+<span class="text-[10px] font-medium text-slate-500 group-hover:text-electric-cyan">Search</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-electric-purple">settings</span>
+<span class="text-[10px] font-medium text-electric-purple">Settings</span>
+</a>
+</div>
+</nav>
+</body></html>

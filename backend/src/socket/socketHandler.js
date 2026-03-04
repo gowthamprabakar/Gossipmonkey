@@ -185,7 +185,7 @@ export const configureSocket = (io) => {
       }
     });
 
-    socket.on('send_message', async ({ roomId, text, imageUrl }) => {
+    socket.on('send_message', async ({ roomId, text, imageUrl, replyToId }) => {
       try {
         const cleanText = String(text || '');
         const cleanImageUrl = String(imageUrl || '').trim();
@@ -296,6 +296,12 @@ export const configureSocket = (io) => {
         flagMessage({ roomId, messageId, flaggedBy: persona.id });
         const flags = listRoomFlags(roomId);
         io.in(roomId).emit('flags_updated', { roomId, flags });
+
+        // Provide UI feedback to the flagger
+        socket.emit('system_message', {
+          type: 'success',
+          text: 'Message flagged for review.'
+        });
       } catch (error) {
         socket.emit('system_message', { type: 'alert', text: error.message });
       }
@@ -325,7 +331,14 @@ export const configureSocket = (io) => {
 
         io.in(roomId).emit('balance_update', { userId: result.from.id, newScore: result.from.score });
         io.in(roomId).emit('balance_update', { userId: result.to.id, newScore: result.to.score });
+
+        // Provide UI feedback to the sender
+        socket.emit('system_message', {
+          type: 'success',
+          text: `You tipped ${amount} 🍌 to ${result.to.name}!`
+        });
       } catch (error) {
+        console.error('Tip User Error:', error.message);
         socket.emit('system_message', { type: 'alert', text: error.message });
       }
     });

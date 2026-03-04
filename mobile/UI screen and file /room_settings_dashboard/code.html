@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gossip Monkey - Room Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "accent-purple": "#8b5cf6",
+                        "accent-cyan": "#06b6d4",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#1a0f0a", // Deepened for contrast
+                        "glass-dark": "rgba(34, 22, 16, 0.7)",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(236, 91, 19, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(236, 91, 19, 0.1);
+        }
+        .neon-glow-purple {
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+        }
+        .neon-glow-cyan {
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+        }
+        input[type='range']::-webkit-slider-runnable-track {
+            background: rgba(236, 91, 19, 0.2);
+            height: 6px;
+            border-radius: 3px;
+        }
+        input[type='range']::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            background: #ec5b13;
+            margin-top: -6px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(236, 91, 19, 0.5);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top App Bar -->
+<header class="sticky top-0 z-50 flex items-center bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-4 py-4 border-b border-primary/10">
+<button class="flex size-10 items-center justify-center rounded-full hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="ml-2 text-xl font-bold leading-tight tracking-tight text-slate-900 dark:text-slate-100">Room Settings</h1>
+<div class="ml-auto flex gap-2">
+<button class="flex size-10 items-center justify-center rounded-full hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400">more_vert</span>
+</button>
+</div>
+</header>
+<!-- Tabs Navigation -->
+<nav class="flex overflow-x-auto border-b border-primary/10 bg-background-light dark:bg-background-dark no-scrollbar">
+<a class="flex-none px-6 py-4 text-sm font-medium text-slate-500 dark:text-slate-400 border-b-2 border-transparent" href="#">Info</a>
+<a class="flex-none px-6 py-4 text-sm font-bold text-primary border-b-2 border-primary" href="#">Monkey</a>
+<a class="flex-none px-6 py-4 text-sm font-medium text-slate-500 dark:text-slate-400 border-b-2 border-transparent" href="#">Moderate</a>
+<a class="flex-none px-6 py-4 text-sm font-medium text-slate-500 dark:text-slate-400 border-b-2 border-transparent" href="#">Advanced</a>
+</nav>
+<main class="flex-1 p-4 space-y-6">
+<!-- Monkey Personality Section -->
+<section class="space-y-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-purple">psychology</span>
+<h2 class="text-lg font-bold">Monkey Personality</h2>
+</div>
+<div class="glass-card rounded-xl p-4">
+<label class="block mb-2 text-sm font-medium text-slate-500 dark:text-slate-400">Selected Archetype</label>
+<div class="relative">
+<select class="w-full appearance-none bg-primary/10 border border-primary/20 rounded-lg px-4 py-3 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary outline-none cursor-pointer">
+<option selected="" value="roaster">Elite Roaster</option>
+<option value="helper">Wholesome Helper</option>
+<option value="chaos">Chaos Agent</option>
+<option value="scholar">Gossip Scholar</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-primary">expand_more</span>
+</div>
+<p class="mt-2 text-xs text-slate-500 dark:text-slate-400 italic">"I'll roast them so hard they'll need a banana for the burn."</p>
+</div>
+</section>
+<!-- Response Settings Card -->
+<section class="space-y-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-cyan">forum</span>
+<h2 class="text-lg font-bold">Response Settings</h2>
+</div>
+<div class="glass-card rounded-xl p-5 space-y-6">
+<!-- Slider -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<label class="text-sm font-medium">Reply Chance</label>
+<span class="text-primary font-bold">75%</span>
+</div>
+<input class="w-full h-1.5 bg-primary/20 rounded-lg appearance-none cursor-pointer accent-primary" max="100" min="0" type="range" value="75"/>
+</div>
+<!-- Input -->
+<div class="space-y-3">
+<label class="text-sm font-medium">Banana Reward</label>
+<div class="flex items-center gap-3">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-amber-500 text-sm">nutrition</span>
+<input class="w-full bg-primary/10 border border-primary/20 rounded-lg pl-10 pr-4 py-2 text-slate-900 dark:text-slate-100 focus:ring-1 focus:ring-primary outline-none" type="number" value="2"/>
+</div>
+<span class="text-xs text-slate-500 dark:text-slate-400">per message</span>
+</div>
+</div>
+<!-- Toggle AI Heartbeat -->
+<div class="flex items-center justify-between pt-2">
+<div class="flex flex-col">
+<span class="text-sm font-medium">AI Heartbeat</span>
+<span class="text-xs text-slate-500 dark:text-slate-400">Keep Monkey active in idle periods</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- General Settings Section -->
+<section class="space-y-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400">settings</span>
+<h2 class="text-lg font-bold">General</h2>
+</div>
+<div class="glass-card rounded-xl p-0 overflow-hidden divide-y divide-primary/5">
+<div class="flex items-center justify-between p-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary/60">timer</span>
+<span class="text-sm font-medium">Slow Mode</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="p-4 space-y-3">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary/60">verified_user</span>
+<span class="text-sm font-medium">Min. Banana Score</span>
+</div>
+<span class="text-primary text-xs font-bold">500</span>
+</div>
+<input class="w-full h-1 bg-primary/20 rounded-lg appearance-none cursor-pointer accent-primary" max="2000" min="0" type="range" value="500"/>
+</div>
+</div>
+</section>
+<!-- Danger Zone -->
+<section class="pt-4 pb-8">
+<button class="w-full py-4 rounded-xl border border-red-500/30 bg-red-500/10 text-red-500 font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">restart_alt</span>
+                    Reset Monkey Memory
+                </button>
+<p class="mt-2 text-center text-xs text-slate-500 dark:text-slate-400">This action cannot be undone. All learned gossips will be wiped.</p>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<div class="sticky bottom-0 z-50 flex gap-2 border-t border-primary/10 bg-background-light dark:bg-background-dark px-4 pb-6 pt-2">
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-slate-400" href="#">
+<div class="flex h-8 items-center justify-center">
+<span class="material-symbols-outlined">chat_bubble</span>
+</div>
+<p class="text-[10px] font-medium leading-normal">Chat</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-primary" href="#">
+<div class="flex h-8 items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">smart_toy</span>
+</div>
+<p class="text-[10px] font-medium leading-normal">Monkey</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-slate-400" href="#">
+<div class="flex h-8 items-center justify-center">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<p class="text-[10px] font-medium leading-normal">Vault</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-slate-400" href="#">
+<div class="flex h-8 items-center justify-center">
+<span class="material-symbols-outlined">settings</span>
+</div>
+<p class="text-[10px] font-medium leading-normal">Settings</p>
+</a>
+</div>
+</div>
+</body></html>

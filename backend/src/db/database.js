@@ -166,6 +166,18 @@ const seedSystemData = () => {
     CREATE INDEX IF NOT EXISTS idx_messages_room_created ON messages(room_id, created_at);
     CREATE INDEX IF NOT EXISTS idx_notifications_persona_created ON notifications(persona_id, created_at);
     CREATE INDEX IF NOT EXISTS idx_channel_bookmarks_persona ON channel_bookmarks(persona_id, created_at);
+
+    CREATE TABLE IF NOT EXISTS tips (
+      id TEXT PRIMARY KEY,
+      room_id TEXT NOT NULL,
+      from_persona_id TEXT NOT NULL,
+      to_persona_id TEXT NOT NULL,
+      amount INTEGER NOT NULL,
+      created_at TEXT NOT NULL,
+      FOREIGN KEY (room_id) REFERENCES rooms(id),
+      FOREIGN KEY (from_persona_id) REFERENCES personas(id),
+      FOREIGN KEY (to_persona_id) REFERENCES personas(id)
+    );
   `);
 
   const globalPersona = db.prepare('SELECT id FROM personas WHERE id = ?').get('system');
@@ -224,10 +236,53 @@ const runMigrations = () => {
   if (!hasColumn('room_settings', 'monkey_config_json')) {
     db.exec(`ALTER TABLE room_settings ADD COLUMN monkey_config_json TEXT NOT NULL DEFAULT '{}';`);
   }
+  // Push notification token
+  if (!hasColumn('personas', 'expo_push_token')) {
+    db.exec(`ALTER TABLE personas ADD COLUMN expo_push_token TEXT;`);
+  }
+  // Profile fields
+  if (!hasColumn('personas', 'bio')) {
+    db.exec(`ALTER TABLE personas ADD COLUMN bio TEXT;`);
+  }
+  // Auth: account code (human-readable recovery code, e.g. MNKY-X4BZ)
+  if (!hasColumn('personas', 'account_code')) {
+    db.exec(`ALTER TABLE personas ADD COLUMN account_code TEXT;`);
+  }
+  // Auth: bcrypt password hash
+  if (!hasColumn('personas', 'password_hash')) {
+    db.exec(`ALTER TABLE personas ADD COLUMN password_hash TEXT;`);
+  }
+  // Auth: rate limiting — failed login count + lock expiry
+  if (!hasColumn('personas', 'failed_attempts')) {
+    db.exec(`ALTER TABLE personas ADD COLUMN failed_attempts INTEGER NOT NULL DEFAULT 0;`);
+  }
+  if (!hasColumn('personas', 'locked_until')) {
+    db.exec(`ALTER TABLE personas ADD COLUMN locked_until TEXT;`);
+  }
+  // Messages: replies to other messages
+  if (!hasColumn('messages', 'reply_to_id')) {
+    db.exec(`ALTER TABLE messages ADD COLUMN reply_to_id TEXT REFERENCES messages(id);`);
+  }
+
+  // Transactions: Banana Tips between users
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS tips (
+      id TEXT PRIMARY KEY,
+      room_id TEXT NOT NULL,
+      from_persona_id TEXT NOT NULL,
+      to_persona_id TEXT NOT NULL,
+      amount INTEGER NOT NULL,
+      created_at TEXT NOT NULL,
+      FOREIGN KEY (room_id) REFERENCES rooms(id),
+      FOREIGN KEY (from_persona_id) REFERENCES personas(id),
+      FOREIGN KEY (to_persona_id) REFERENCES personas(id)
+    );
+  `);
 
   db.exec(`
     CREATE INDEX IF NOT EXISTS idx_rooms_kind_created ON rooms(channel_kind, created_at);
     CREATE INDEX IF NOT EXISTS idx_rooms_geohash ON rooms(geohash_prefix);
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_personas_account_code ON personas(account_code) WHERE account_code IS NOT NULL;
   `);
 };
 

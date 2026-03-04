@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gossip Monkey - Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#bc13fe", // Neon Purple
+                        "secondary": "#00f2ff", // Cyan Accent
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#0a050d", // Deep Space
+                        "surface-dark": "#1a0b2e",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass {
+            background: rgba(188, 19, 254, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(188, 19, 254, 0.2);
+        }
+        .neon-glow {
+            box-shadow: 0 0 15px rgba(188, 19, 254, 0.4);
+        }
+        .neon-text {
+            text-shadow: 0 0 8px rgba(0, 242, 255, 0.6);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden pb-24">
+<!-- Header -->
+<div class="sticky top-0 z-20 flex items-center bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4 justify-between border-b border-primary/10">
+<div class="flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-primary/10 cursor-pointer">
+<span class="material-symbols-outlined text-slate-900 dark:text-slate-100">arrow_back</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight flex-1 text-center">My Persona</h2>
+<div class="flex w-10 items-center justify-end">
+<button class="flex size-10 items-center justify-center rounded-full hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-slate-900 dark:text-slate-100">settings</span>
+</button>
+</div>
+</div>
+<!-- Hero Section / Avatar -->
+<div class="flex p-6 flex-col items-center">
+<div class="relative group">
+<div class="absolute inset-0 bg-gradient-to-tr from-primary to-secondary rounded-full blur-xl opacity-40 group-hover:opacity-60 transition-opacity"></div>
+<div class="relative bg-center bg-no-repeat aspect-square bg-cover rounded-full min-h-36 w-36 border-4 border-primary/30" data-alt="Digital art of a cool monkey wearing sunglasses and a hoodie" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA9snwSEaZ6-J8KR7GoSRMsM6dvPicgMeIqg7VBfX93cIqgHSmReTjd8HmnBybkY40niw2kn6LfveiT5VpI0Ozks3_OiA_qAJAUDzB5GB7NN04ppATcg0bWK7QOQQKMZbDiNg1pkz_y0JjJ_uHDE7ZiQTKt03qDBHLeCbp--1bqzS9bsVmLK1a-Qm3PGha7-P02Kb_btuvb9jRvNDCU4XuY1E7w6bI9PaTmZMTYr-EAxs5lYNQaL1IHskaSI_-dufKZRs5ytx_9xXM");'>
+</div>
+<button class="absolute bottom-1 right-1 bg-primary p-2 rounded-full border-2 border-background-dark text-white flex items-center justify-center neon-glow">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+<div class="mt-4 flex flex-col items-center text-center">
+<h1 class="text-slate-900 dark:text-slate-100 text-3xl font-extrabold tracking-tight">@GossipApe_42</h1>
+<p class="text-primary dark:text-secondary font-medium mt-1 neon-text">Elite Roaster • LVL 24</p>
+<p class="text-slate-600 dark:text-slate-400 text-sm mt-3 max-w-xs leading-relaxed">
+                    Professional banana thrower and room roaster. 🍌🔥 If I'm not roasting, I'm ghosting.
+                </p>
+</div>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-3 gap-3 px-4 py-2">
+<div class="glass rounded-2xl p-4 flex flex-col items-center justify-center text-center">
+<span class="text-secondary font-bold text-xl">12.4k</span>
+<span class="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-bold mt-1">Bananas</span>
+<span class="material-symbols-outlined text-primary text-sm mt-1">payments</span>
+</div>
+<div class="glass rounded-2xl p-4 flex flex-col items-center justify-center text-center">
+<span class="text-slate-900 dark:text-slate-100 font-bold text-xl">42</span>
+<span class="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-bold mt-1">Rooms</span>
+<span class="material-symbols-outlined text-primary text-sm mt-1">groups</span>
+</div>
+<div class="glass rounded-2xl p-4 flex flex-col items-center justify-center text-center">
+<span class="text-slate-900 dark:text-slate-100 font-bold text-xl">1.2k</span>
+<span class="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-bold mt-1">Messages</span>
+<span class="material-symbols-outlined text-primary text-sm mt-1">forum</span>
+</div>
+</div>
+<!-- Achievements -->
+<div class="mt-8">
+<div class="flex items-center justify-between px-6 mb-4">
+<h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold">Badges</h3>
+<span class="text-primary text-xs font-bold uppercase tracking-tighter cursor-pointer">View All</span>
+</div>
+<div class="flex gap-4 overflow-x-auto px-6 pb-2 no-scrollbar">
+<div class="flex-shrink-0 flex flex-col items-center gap-2">
+<div class="size-16 rounded-full bg-gradient-to-b from-yellow-400 to-orange-600 flex items-center justify-center shadow-lg shadow-orange-900/20">
+<span class="material-symbols-outlined text-white text-3xl">local_fire_department</span>
+</div>
+<span class="text-[10px] font-bold text-slate-400 uppercase">Top Roaster</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center gap-2 opacity-80">
+<div class="size-16 rounded-full bg-gradient-to-b from-cyan-400 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-900/20">
+<span class="material-symbols-outlined text-white text-3xl">verified</span>
+</div>
+<span class="text-[10px] font-bold text-slate-400 uppercase">Early Ape</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center gap-2 opacity-80">
+<div class="size-16 rounded-full bg-gradient-to-b from-purple-400 to-pink-600 flex items-center justify-center shadow-lg shadow-pink-900/20">
+<span class="material-symbols-outlined text-white text-3xl">celebration</span>
+</div>
+<span class="text-[10px] font-bold text-slate-400 uppercase">Party Animal</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center gap-2 opacity-40 grayscale">
+<div class="size-16 rounded-full bg-slate-700 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400 text-3xl">lock</span>
+</div>
+<span class="text-[10px] font-bold text-slate-500 uppercase">Hidden</span>
+</div>
+</div>
+</div>
+<!-- My Personas Section -->
+<div class="mt-8">
+<div class="flex items-center justify-between px-6 mb-4">
+<h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold">My Personas</h3>
+<button class="bg-primary/20 text-primary px-3 py-1 rounded-full text-xs font-bold">Create New</button>
+</div>
+<div class="flex gap-4 overflow-x-auto px-6 pb-4 no-scrollbar">
+<!-- Persona Card 1 (Active) -->
+<div class="flex-shrink-0 w-40 glass rounded-2xl p-4 border-2 border-primary/50 relative">
+<div class="absolute top-2 right-2 size-2 bg-secondary rounded-full animate-pulse"></div>
+<div class="size-16 rounded-xl bg-center bg-cover mx-auto mb-3" data-alt="Close up of monkey persona avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD-1-wkFkDbuJqjYNi0DiuHw1LdzQ9i-yTzsPVAvf9WXwcmjVpu4VwEViNYBF5XA4PN4hdWMvWWvddc6S2C-GQLIzhRll46hMLXx_daVaNtGoVYY47_S9xGM9ld3edC589j7gvv6-sZ3sACuwZjU9eHBr8Q_8_b-w_VtfDMcfa8LOXw0tShPbHcC74k504lBIS3Q_4FUTsc5pcOvB5xOgTUr1BXKeSFqCwtwWsgEkN6oDLh0tRUk48BN6Qoe_qj3DzT8HYhjzKa4mw");'></div>
+<p class="text-center text-sm font-bold text-white truncate">GossipApe_42</p>
+<p class="text-center text-[10px] text-secondary font-medium uppercase tracking-tighter">Active Now</p>
+</div>
+<!-- Persona Card 2 -->
+<div class="flex-shrink-0 w-40 glass rounded-2xl p-4 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">
+<div class="size-16 rounded-xl bg-center bg-cover mx-auto mb-3" data-alt="Another monkey character avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBaGjqA-AwdUSFhBoqGV5QYxfF69hXTUUfbrv-2xburk-J2_MPcCDkcSqI30aMNd3iDXdhLdxZksBUGzgPn3selUuhrLQ2hCmF1Pu9YwY9gfcrRnbYyjEfuPlRWVbpN5qglG9wu9lkIS6wBOpgXbIcXQWyumpuXLCib3Lu_QkGnuPm8_lpCMQHhIspCuZn7kT0q93WRBJL8DQ1VNTFDP2XnGa_JJI0iN56-mhkm71RnrKx0WURbJL9N9Ce9ztX3qAcv279X4tLChfQ");'></div>
+<p class="text-center text-sm font-bold text-white truncate">ChillChimp</p>
+<p class="text-center text-[10px] text-slate-400 font-medium uppercase tracking-tighter">In Dormant</p>
+</div>
+<!-- Persona Card 3 -->
+<div class="flex-shrink-0 w-40 glass rounded-2xl p-4 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">
+<div class="size-16 rounded-xl bg-center bg-cover mx-auto mb-3" data-alt="Scientific monkey character avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCiqc2RhTFyO2AyhiYP00TcV7CjkkY9imkLcWpR9o7JjAnvVAnvXtusB5BSQRoovejCEqL2C-ACVDHkcJYFp1GsjmmF91CMPFLPPGI0ZM5VWgpex3_iwy1Go5B8iEaWz6ZCwGSTZpDiG2jv5YS594gT1-L_lPIfqXRCSJTEiBDzzaEUN6xNvJgRGHM8vKgCOJEGbyxLhb8rl1hIwn_-_KF7YxTnYz670Skr6ksgBTyOsSz8fGyEqvPgv12nMlUI6gvGKbfZemr5ueQ");'></div>
+<p class="text-center text-sm font-bold text-white truncate">Dr. Banana</p>
+<p class="text-center text-[10px] text-slate-400 font-medium uppercase tracking-tighter">In Dormant</p>
+</div>
+</div>
+</div>
+<!-- Menu Options -->
+<div class="mt-4 px-6 space-y-2">
+<button class="w-full flex items-center gap-4 p-4 rounded-2xl bg-slate-100 dark:bg-surface-dark/50 hover:bg-primary/10 transition-colors group">
+<span class="material-symbols-outlined text-primary">security</span>
+<span class="flex-1 text-left font-semibold text-slate-800 dark:text-slate-200">Account Privacy</span>
+<span class="material-symbols-outlined text-slate-400 group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+<button class="w-full flex items-center gap-4 p-4 rounded-2xl bg-slate-100 dark:bg-surface-dark/50 hover:bg-primary/10 transition-colors group">
+<span class="material-symbols-outlined text-primary">notifications_active</span>
+<span class="flex-1 text-left font-semibold text-slate-800 dark:text-slate-200">Notifications</span>
+<span class="material-symbols-outlined text-slate-400 group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+<button class="w-full flex items-center gap-4 p-4 rounded-2xl bg-red-500/10 hover:bg-red-500/20 transition-colors mt-4">
+<span class="material-symbols-outlined text-red-500">logout</span>
+<span class="flex-1 text-left font-semibold text-red-500">Log Out Persona</span>
+</button>
+</div>
+</div>
+<!-- Bottom Navigation Bar -->
+<div class="fixed bottom-0 left-0 right-0 z-50">
+<div class="glass border-t border-primary/20 pb-6 pt-2 px-6 flex justify-between items-center">
+<a class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+<p class="text-[10px] font-bold uppercase tracking-wider">Chat</p>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400" href="#">
+<span class="material-symbols-outlined">explore</span>
+<p class="text-[10px] font-bold uppercase tracking-wider">Discovery</p>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400" href="#">
+<span class="material-symbols-outlined">groups</span>
+<p class="text-[10px] font-bold uppercase tracking-wider">Social</p>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined fill-[1]">person</span>
+<p class="text-[10px] font-bold uppercase tracking-wider">Profile</p>
+<div class="w-1 h-1 bg-primary rounded-full mt-0.5"></div>
+</a>
+</div>
+</div>
+</body></html>
