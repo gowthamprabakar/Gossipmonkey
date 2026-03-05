@@ -3,19 +3,30 @@ import { useAppStore } from '../store/useAppStore';
 
 import Constants from 'expo-constants';
 
-// Determine the correct IP automatically based on the Expo environment
-// When testing on a physical device using Expo Go, it uses your local network IP
-// When using iOS Simulator, localhost works.
-// When using Android Emulator, 10.0.2.2 represents localhost.
+// ── Backend URL resolution ────────────────────────────────────────────
+// Priority order:
+//   1. If APP_ENV=production → use the deployed backend
+//   2. If running in Expo Go / dev build → derive IP from hostUri (LAN testing)
+//   3. Fallback for Android emulator
+// Update PRODUCTION_API_URL when you deploy the backend to a real server.
+const PRODUCTION_API_URL = 'https://api.gossipmonkey.app'; // ← change this when backend is deployed
+
 const getBackendUrl = () => {
-    // Default to the computer's IP where Expo is running (best for Physical devices & Expo Go)
+    const appEnv = process.env.APP_ENV;
+
+    // Production build → always use deployed backend
+    if (appEnv === 'production') {
+        return PRODUCTION_API_URL;
+    }
+
+    // Dev / preview → auto-detect host IP from Expo manifest (works over LAN)
     const hostUri = Constants.expoConfig?.hostUri;
     if (hostUri) {
         const ip = hostUri.split(':')[0];
         return `http://${ip}:3000`;
     }
 
-    // Fallback for Android Emulators if hostUri isn't defined
+    // Android emulator fallback
     return 'http://10.0.2.2:3000';
 };
 
