@@ -388,9 +388,9 @@ export const toggleReaction = ({ roomId, messageId, reaction, personaId }) => {
     db.prepare('INSERT INTO reactions (id, message_id, persona_id, reaction, created_at) VALUES (?, ?, ?, ?, ?)')
       .run(crypto.randomUUID(), messageId, personaId, reaction, nowIso());
 
-    if (['🍌', '❤️', '😂'].includes(reaction)) {
-      updatePersonaScore(message.sender_id, 1);
-    }
+    // Any new reaction earns the message author +1 banana 🍌
+    // (removing a reaction or changing it does not deduct — rewards are final)
+    updatePersonaScore(message.sender_id, 1);
   }
 
   return {
