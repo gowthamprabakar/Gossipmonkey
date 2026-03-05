@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import {
     View, Text, FlatList, KeyboardAvoidingView, Platform,
-    TouchableOpacity, Image, StyleSheet, Animated,
+    TouchableOpacity, Image, StyleSheet, Animated, Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
 import { useChatStore, MessageData } from '../../store/useChatStore';
 import { useAppStore } from '../../store/useAppStore';
+import { API_BASE_URL } from '../../services/api';
 import { MessageBubble } from '../../components/MessageBubble';
 import { MessageActionSheet } from '../../components/MessageActionSheet';
 import { InputBar } from '../../components/InputBar';
@@ -99,7 +101,7 @@ export function ChatScreen({ route, navigation }: any) {
         messages, participants, participantsCount, aiAvailable,
         knockQueue, joinRoom, leaveRoom, sendMessage,
     } = useChatStore();
-    const { persona } = useAppStore();
+    const { persona, token } = useAppStore();
 
     const flatListRef = useRef<FlatList>(null);
     const [selectedMsg, setSelectedMsg] = useState<MessageData | null>(null);
@@ -142,6 +144,61 @@ export function ChatScreen({ route, navigation }: any) {
     const handleSend = (text: string, imageUrl?: string) => {
         sendMessage(roomId, text, imageUrl);
     };
+
+    // ── Handle image pick → upload → send ────────────────────────────
+    const handleImagePick = useCallback(async () => {
+        try {
+            // Request media library permission
+            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (status !== 'granted') {
+                Alert.alert('Permission needed', 'Allow access to your photos to share images.');
+                return;
+            }
+
+            const result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: false,
+                quality: 0.8,
+                base64: false,
+            });
+
+            if (result.canceled || !result.assets?.[0]) return;
+
+            const asset = result.assets[0];
+            const fileUri = asset.uri;
+            const filename = fileUri.split('/').pop() ?? 'photo.jpg';
+            const mimeType = asset.mimeType ?? 'image/jpeg';
+
+            // Show uploading toast
+            const uploadToastId = Date.now();
+            setToasts(prev => [{ text: 'Uploading image...', type: 'info' as const, id: uploadToastId }, ...prev].slice(0, 2));
+
+            // Build FormData and POST to backend
+            const formData = new FormData();
+            formData.append('file', { uri: fileUri, name: filename, type: mimeType } as any);
+
+            // Strip /api suffix from base URL for upload route
+            const uploadBase = API_BASE_URL.replace(/\/api$/, '');
+            const res = await fetch(`${uploadBase}/api/upload`, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            const json = await res.json();
+            if (!res.ok || !json.url) {
+                throw new Error(json.error ?? 'Upload failed');
+            }
+
+            // Send as a message with no text, just the imageUrl
+            sendMessage(roomId, '', json.url);
+        } catch (err: any) {
+            console.error('[ChatScreen] Image upload failed:', err.message);
+            Alert.alert('Upload failed', err.message ?? 'Could not upload the image. Please try again.');
+        }
+    }, [roomId, token]);
 
     // ── Handle react ──────────────────────────────────────────────
     const handleReact = (messageId: string, emoji: string) => {
@@ -334,6 +391,7 @@ export function ChatScreen({ route, navigation }: any) {
                     {/* ── Input bar ── */}
                     <InputBar
                         onSend={handleSend}
+                        onImagePick={handleImagePick}
                         onPaintCommand={() => { }}
                         isAdmin={isAdmin}
                         onAdminPanel={() => setAdminOpen(true)}
